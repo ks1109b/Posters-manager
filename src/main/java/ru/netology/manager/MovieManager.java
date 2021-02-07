@@ -1,17 +1,27 @@
 package ru.netology.manager;
 
-import lombok.NoArgsConstructor;
 import ru.netology.domain.Movie;
 import ru.netology.repository.MovieRepository;
-
-@NoArgsConstructor
 
 public class MovieManager {
 
     private MovieRepository repository;
+    private int countLastMovies = 10;
+
+    public MovieManager() {
+    }
+
+    public MovieManager(int countLastMovies) {
+        this.countLastMovies = countLastMovies;
+    }
 
     public MovieManager(MovieRepository repository) {
         this.repository = repository;
+    }
+
+    public MovieManager(MovieRepository repository, int countLastMovies) {
+        this.repository = repository;
+        this.countLastMovies = countLastMovies;
     }
 
     public void add(Movie item) {
@@ -28,7 +38,7 @@ public class MovieManager {
         return result;
     }
 
-    public Movie[] findByID(int id) {
+    public Movie[] findById(int id) {
         Movie[] result = repository.findById(id);
         return result;
     }

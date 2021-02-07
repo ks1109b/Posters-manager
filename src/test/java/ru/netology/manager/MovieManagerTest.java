@@ -60,13 +60,13 @@ class MovieManagerTest {
     }
 
     @Test
-    public void shouldFindByID() {
+    public void shouldFindById() {
         int idToFind = 2;
         Movie[] returned = new Movie[]{second};
         doReturn(returned).when(repository).findById(idToFind);
 
         Movie[] expected = new Movie[]{second};
-        Movie[] actual = manager.findByID(idToFind);
+        Movie[] actual = manager.findById(idToFind);
         assertArrayEquals(expected, actual);
 
         verify(repository).findById(idToFind);
