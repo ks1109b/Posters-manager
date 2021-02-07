@@ -1,14 +1,14 @@
 package ru.netology.manager;
 
-import lombok.NoArgsConstructor;
 import ru.netology.domain.Movie;
-
-@NoArgsConstructor
 
 public class MovieManager {
 
     private Movie[] movies = new Movie[0];
     private int countLastMovies = 10;
+
+    public MovieManager() {
+    }
 
     public MovieManager(int countLastMovies) {
         this.countLastMovies = countLastMovies;
@@ -17,9 +17,7 @@ public class MovieManager {
     public void add(Movie item) {
         int length = movies.length + 1;
         Movie[] tmp = new Movie[length];
-//         for (int i = 0; i < movies.length; i++) {
-//           tmp[i] = movies[i];
-//         }
+
         System.arraycopy(movies, 0, tmp, 0, movies.length);
         int lastIndex = tmp.length - 1;
         tmp[lastIndex] = item;
