@@ -2,43 +2,42 @@ package ru.netology.manager;
 
 import lombok.NoArgsConstructor;
 import ru.netology.domain.Movie;
+import ru.netology.repository.MovieRepository;
 
 @NoArgsConstructor
 
 public class MovieManager {
 
-    private Movie[] movies = new Movie[0];
-    private int countLastMovies = 10;
+    private MovieRepository repository;
 
-    public MovieManager(int countLastMovies) {
-        this.countLastMovies = countLastMovies;
+    public MovieManager(MovieRepository repository) {
+        this.repository = repository;
     }
 
     public void add(Movie item) {
-        int length = movies.length + 1;
-        Movie[] tmp = new Movie[length];
-//         for (int i = 0; i < movies.length; i++) {
-//           tmp[i] = movies[i];
-//         }
-        System.arraycopy(movies, 0, tmp, 0, movies.length);
-        int lastIndex = tmp.length - 1;
-        tmp[lastIndex] = item;
-        movies = tmp;
+        repository.save(item);
     }
 
-    public Movie[] getLastMovies() {
-        Movie[] result = new Movie[movies.length];
-
+    public Movie[] getAll() {
+        Movie[] items = repository.findAll();
+        Movie[] result = new Movie[items.length];
         for (int i = 0; i < result.length; i++) {
-            int index = movies.length - i - 1;
-            result[i] = movies[index];
+            int index = items.length - i - 1;
+            result[i] = items[index];
         }
-        if (result.length <= countLastMovies) {
-            return result;
-        } else {
-            Movie[] result2 = new Movie[countLastMovies];
-            System.arraycopy(result, 0, result2, 0, result2.length);
-            return result2;
-        }
+        return result;
+    }
+
+    public Movie[] findByID(int id) {
+        Movie[] result = repository.findById(id);
+        return result;
+    }
+
+    public void removeById(int id) {
+        repository.removeById(id);
+    }
+
+    public void removeAll() {
+        repository.removeAll();
     }
 }
